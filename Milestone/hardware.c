@@ -5,6 +5,12 @@
  *      Author: samson
  */
 
+#include "hardware.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
 /*
  * Write to 7-segment display
  * ---------------------------

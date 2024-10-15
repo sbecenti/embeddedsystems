@@ -12,7 +12,7 @@ ARCH= arm
 
 build: $(TARGET)
 
-$(TARGET): app.o 
+$(TARGET): app.o hardware.o
 	$(CC) $(LDFLAGS)   $^ -o $@ 
 
 %.o : %.c

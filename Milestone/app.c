@@ -3,12 +3,15 @@
  *
  *  Created on: Oct 9, 2024
  *      Author: samson
+ *      This is my own work.
  */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include "app.h"
+#include "hardware.h"
 
 /*
  * decimal to binary conversion
@@ -138,8 +141,13 @@ void decrease7Segment(int input) {
 			binary2Hex(bcd2sevenSegmentDecoder(input / 10), &output2[0]);
 			printf("MSB LED is %s\n", &output2[0]);
 			binary2Hex(bcd2sevenSegmentDecoder(input % 10), &output2[0]);
-			printf("LSB LED is %s\n\n", &output2[0]);
+			printf("LSB LED is %s\n", &output2[0]);
 
+			// stub function that would write to the hardware
+			writeToSevenSegment(input);
+			printf("\n\n");
+
+			// Decrease input
 			input--;
 			sleep(1);
 		}
@@ -161,7 +169,11 @@ void increaseStopwatch() {
 			binary2Hex(bcd2sevenSegmentDecoder(count / 10), &output3[0]);
 			printf("MSB LED is %s\n", &output3[0]);
 			binary2Hex(bcd2sevenSegmentDecoder(count % 10), &output3[0]);
-			printf("LSB LED is %s\n\n", &output3[0]);
+			printf("LSB LED is %s\n", &output3[0]);
+
+			// stub function that would write to the hardware
+			writeToSevenSegment(count);
+			printf("\n\n");
 
 			count++;
 			sleep(1);
@@ -173,11 +185,13 @@ int main(int argc, char **argv) {
 	int counter = 0;
 	int user = -1;
 
+	// Allow user to switch between modes
 	while (user != 0) {
 		printf("\n0 - exit\n1 - timer\n2 - stopwatch\n");
 		printf("Enter number: ");
 		scanf("%d", &user);
 
+		// Timer mode
 		if (user == 1) {
 			char input[10];
 			counter = 0;
@@ -202,6 +216,7 @@ int main(int argc, char **argv) {
 			decrease7Segment(counter);
 		}
 
+		// Stopwatch mode
 		if (user == 2) {
 			printf("\nBeginning Timer\n");
 			increaseStopwatch();
